@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace lab1_3
 {
-    class Point
+    public class Point
     {
         private int x;
         private int y;
@@ -22,38 +22,32 @@ namespace lab1_3
         }
 
     }
-
-    class Figure
+    public class Figure
     {
-        public string name {  get; set; }
-        private Point[] masspoint = new Point[5];
+        public string name { get; set; }
+        private Point p1;
+        private Point p2;
+        private Point p3;
+        private Point p4;
+        private Point p5;
         public Figure(Point p1, Point p2, Point p3, string name)
         {
-            masspoint[0] = p1;
-            masspoint[1] = p2;
-            masspoint[2] = p3;
+            this.p1 = p1;
+            this.p2 = p2;
+            this.p3 = p3;
             this.name = name;
         }
-        public Figure(Point p1, Point p2, Point p3, Point p4, string name)
+        public Figure(Point p1, Point p2, Point p3, Point p4, string name) : this(p1, p2, p3, name)
         {
-            masspoint[0] = p1;
-            masspoint[1] = p2;
-            masspoint[2] = p3;
-            masspoint[3] = p4;
-            this.name = name;
+            this.p4 = p4;
         }
-        public Figure(Point p1, Point p2, Point p3, Point p4, Point p5, string name)
+        public Figure(Point p1, Point p2, Point p3, Point p4, Point p5, string name) : this(p1, p2, p3, p4, name)
         {
-            masspoint[0] = p1;
-            masspoint[1] = p2;
-            masspoint[2] = p3;
-            masspoint[3] = p4;
-            masspoint[4] = p5;
-            this.name = name;
+            this.p5 = p5;
         }
 
-        
-        public double LengthSide(Point A, Point B)
+
+        public static double LengthSide(Point A, Point B)
         {
             int dx = A.X - B.X;
             int dy = A.Y - B.Y;
@@ -62,19 +56,15 @@ namespace lab1_3
         public double PerimeterCalculator()
         {
             double length = 0;
-            int n = 0;
 
-            if (name == "Треугольник ") n = 3;
-            if (name == "Четырехугольник") n = 4;
-            if (name == "Пятиугольник") n = 5;
-            
-            length = LengthSide(masspoint[0], masspoint[n - 1]);
-
-            for (int i = 0; i <= n-2; i++) length = length + LengthSide(masspoint[i], masspoint[i+1]);
+            if (name == "Треугольник ") { length = LengthSide(p1, p2) + LengthSide(p2, p3) + LengthSide(p1, p3); };
+            if (name == "Четырехугольник") { length = LengthSide(p1, p2) + LengthSide(p2, p3) + LengthSide(p3, p4) + LengthSide(p4, p1); };
+            if (name == "Пятиугольник") { length = LengthSide(p1, p2) + LengthSide(p2, p3) + LengthSide(p3, p4) + LengthSide(p4, p5) + LengthSide(p5, p1); };
 
             return length;
         }
     }
+
     internal class Program
     {
         static void Main(string[] args)
@@ -88,4 +78,4 @@ namespace lab1_3
             Console.WriteLine();
         }
     }
-}
+} 
